@@ -12,6 +12,7 @@
     "gl-matrix": "^3.0.0"
   },
   "devDependencies": {
+    "parcel-plugin-glslify": "^0.1.0",
     "parcel-plugin-static-files-copy": "^2.1.1"
   },
   "staticFiles": {

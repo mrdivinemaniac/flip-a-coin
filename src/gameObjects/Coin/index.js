@@ -1,8 +1,9 @@
 import GameObject from '../GameObject'
 import Cylinder from '../../models/primitives/Cylinder'
-import { vertexShaderSrc, fragmentShaderSrc } from './shaders'
 import VertexShader from '../../core/shaders/VertexShader'
 import FragmentShader from '../../core/shaders/FragmentShader'
+import vertexShaderSrc from './shader.vert'
+import fragmentShaderSrc from './shader.frag'
 
 class Coin extends GameObject {
   initialize (radius, thickness, detail = 20) {
