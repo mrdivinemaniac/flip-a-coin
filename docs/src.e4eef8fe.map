@@ -1,0 +1,1 @@
+{"version":3,"sources":["src/index.js"],"names":["window","alert"],"mappings":";AAAAA,OAAOC,MAAM","file":"src.e4eef8fe.map","sourceRoot":"..","sourcesContent":["window.alert(\"yoyoyo\")"]}

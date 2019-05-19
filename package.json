@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "Flip a Coin and make decisions!",
   "scripts": {
-    "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html --out-dir .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "parcel index.html",
+    "build": "parcel build index.html --out-dir docs"
   },
   "author": "mrdivinemaniac",
   "license": "ISC"
