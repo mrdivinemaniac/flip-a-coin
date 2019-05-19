@@ -1,4 +1,4 @@
-class GLContext {
+class AppContext {
   constructor (canvas) {
     this.canvas = canvas
     let gl = canvas.getContext('webgl')
@@ -36,4 +36,4 @@ class GLContext {
   }
 }
 
-export default GLContext
+export default AppContext
