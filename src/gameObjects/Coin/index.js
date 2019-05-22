@@ -18,8 +18,6 @@ class Coin extends GameObject {
   setTexture (textureImage) {
     this.__model.setTexture(textureImage)
   }
-
-  update () {}
 }
 
 export default Coin

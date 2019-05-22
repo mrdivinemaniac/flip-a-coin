@@ -16,6 +16,7 @@ class AppContext {
       throw new Error('Your browser does not support WebGL and 3D magic')
     }
     this.gl = gl
+    this.__state = 'initializing'
     this.__setupInputs({ ...options.input, ...DEFAULT_INPUT_OPTIONS })
   }
 
@@ -26,8 +27,31 @@ class AppContext {
     }
   }
 
+  notifyUpdating () {
+    this.__state = 'updating'
+  }
+
+  notifyUpdateDone () {
+    this.__state = 'updated'
+    if (this.__input.mouse) {
+      this.__input.mouse.update()
+    }
+  }
+
+  notifyDrawing () {
+    this.__state = 'drawing'
+  }
+
+  notifyDrawDone () {
+    this.__state = 'drawn'
+  }
+
   get input () {
     return { ...this.__input }
+  }
+
+  get state () {
+    return this.__state
   }
 
   createVertexShader (source) {

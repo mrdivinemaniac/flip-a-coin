@@ -10,6 +10,7 @@ class Scene {
     gl.cullFace(gl.BACK)
 
     this.__drawGameObject = this.__drawGameObject.bind(this)
+    this.__updateGameObject = this.__updateGameObject.bind(this)
   }
 
   setClearColor (clearColor) {
@@ -47,14 +48,26 @@ class Scene {
     return this.context.canvas.width
   }
 
-  __drawGameObject (gameObject) {
-    gameObject.draw(this.__camera.viewMat, this.__camera.projMat)
+  update () {
+    this.context.notifyUpdating()
+    this.__gameObjects.forEach(this.__updateGameObject)
+    this.context.notifyUpdateDone()
   }
 
   draw () {
+    this.context.notifyDrawing()
     const { context: { gl } } = this
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
     this.__gameObjects.forEach(this.__drawGameObject)
+    this.context.notifyDrawDone()
+  }
+
+  __updateGameObject (gameObject) {
+    gameObject.update()
+  }
+
+  __drawGameObject (gameObject) {
+    gameObject.draw(this.__camera.viewMat, this.__camera.projMat)
   }
 }
 

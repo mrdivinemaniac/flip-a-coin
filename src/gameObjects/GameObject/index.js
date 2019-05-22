@@ -4,6 +4,15 @@ class GameObject {
     this.position = { x: 0, y: 0, z: 0 }
     this.scale = { x: 1, y: 1, z: 1 }
     this.rotation = { x: 0, y: 0, z: 0 }
+    this.__controlScripts = {}
+  }
+
+  addControlScript (name, script) {
+    this.__controlScripts[name] = script
+  }
+
+  getControlScript (name) {
+    return this.__controlScripts[name]
   }
 
   setScene (scene) {
@@ -25,6 +34,13 @@ class GameObject {
       )
       this.__model.draw()
     }
+  }
+
+  update () {
+    const { __controlScripts } = this
+    Object.keys(__controlScripts).forEach(name => {
+      __controlScripts[name].update(this, this.context)
+    })
   }
 
   destroy () {
