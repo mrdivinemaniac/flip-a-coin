@@ -1,5 +1,10 @@
+import Keyboard from '../Keyboard'
+import Mouse from '../Mouse'
+
+const DEFAULT_INPUT_OPTIONS = { keyboard: true, mouse: true }
+
 class AppContext {
-  constructor (canvas) {
+  constructor (canvas, options = {}) {
     this.canvas = canvas
     let gl = canvas.getContext('webgl')
     if (!gl) {
@@ -11,6 +16,18 @@ class AppContext {
       throw new Error('Your browser does not support WebGL and 3D magic')
     }
     this.gl = gl
+    this.__setupInputs({ ...options.input, ...DEFAULT_INPUT_OPTIONS })
+  }
+
+  __setupInputs (inputOptions) {
+    this.__input = {
+      keyboard: inputOptions.keyboard ? new Keyboard() : undefined,
+      mouse: inputOptions.mouse ? new Mouse() : undefined
+    }
+  }
+
+  get input () {
+    return { ...this.__input }
   }
 
   createVertexShader (source) {
