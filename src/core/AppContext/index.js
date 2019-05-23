@@ -17,6 +17,8 @@ class AppContext {
     }
     this.gl = gl
     this.__state = 'initializing'
+    this.__drawDoneTime = 0
+    this.__deltaTime = 0
     this.__setupInputs({ ...options.input, ...DEFAULT_INPUT_OPTIONS })
   }
 
@@ -28,6 +30,7 @@ class AppContext {
   }
 
   notifyUpdating () {
+    this.__deltaTime = window.performance.now() - this.__drawDoneTime
     this.__state = 'updating'
   }
 
@@ -44,6 +47,7 @@ class AppContext {
 
   notifyDrawDone () {
     this.__state = 'drawn'
+    this.__drawDoneTime = window.performance.now()
   }
 
   get input () {
@@ -52,6 +56,10 @@ class AppContext {
 
   get state () {
     return this.__state
+  }
+
+  get deltaTime () {
+    return this.__deltaTime
   }
 
   createVertexShader (source) {
