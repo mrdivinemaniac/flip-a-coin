@@ -2,7 +2,7 @@ import Interpolator from '../../interpolators/Interpolator'
 import SerialInterpolatorSet from '../../interpolators/SerialInterpolatorSet'
 import ParallelInterpolatorSet from '../../interpolators/ParallelInterpolatorSet'
 
-export function flipAnimation (gameObject) {
+export function flipAnimation (gameObject, endAngle) {
   const startY = gameObject.position.y
   const midY = startY + 2
   const endY = midY + 1
@@ -18,10 +18,11 @@ export function flipAnimation (gameObject) {
   ])
   const slowFlip = new Interpolator(0, 480, 900)
   const flip = new Interpolator(0, 720, 400)
+  const endFlip = new Interpolator(720, endAngle, 400)
   const flipAnim = new SerialInterpolatorSet([
     flip,
     slowFlip,
-    flip.clone()
+    endFlip
   ])
   return new ParallelInterpolatorSet([
     jumpAnim,

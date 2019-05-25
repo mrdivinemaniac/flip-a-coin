@@ -39,7 +39,8 @@ function createCoin (context) {
   const texture = new Texture(context)
   texture.loadImage('textures/2rscoin.jpg', 3)
   const coin = new Coin(context)
-  coin.addControlScript('controlCoin', new ControlCoin())
+  const flipScript = new ControlCoin()
+  coin.addControlScript('controlCoin', flipScript)
   coin.initialize(1, 0.1, 50)
   coin.setTexture(texture)
   return coin
