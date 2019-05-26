@@ -17,5 +17,6 @@
   },
   "staticFiles": {
     "staticPath": "static"
-  }
+  },
+  "browserslist": ["last 2 years"]
 }
