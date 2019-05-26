@@ -10,6 +10,10 @@ class ControlCoin extends ControlScript {
     this.__onFlipEnd = null
   }
 
+  onFlipStart (callback) {
+    this.__onFlipStart = callback
+  }
+
   onFlipEnd (callback) {
     this.__onFlipEnd = callback
   }
@@ -21,6 +25,7 @@ class ControlCoin extends ControlScript {
       const heads = Math.random() < 0.5
       this.__flipAnimation = flipAnimation(gameObject, heads ? 180 : 0)
       this.__flipResult = { heads, tails: !heads }
+      if (this.__onFlipStart) this.__onFlipStart()
     }
   }
 

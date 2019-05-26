@@ -4,13 +4,16 @@ import Scene from './core/Scene'
 import Camera from './core/Camera'
 import Texture from './core/Texture'
 import ControlCoin from './scripts/ControlCoin'
+import UI from './UI'
 
 function main () {
+  const ui = new UI()
   const canvas = document.getElementById('screen')
   canvas.width = window.innerWidth
   canvas.height = window.innerHeight
 
   const context = new AppContext(canvas)
+  context.ui = ui
   const scene = setupScene(context)
   const coin = createCoin(context)
 
@@ -36,10 +39,21 @@ function setupScene (context) {
 }
 
 function createCoin (context) {
+  const { ui } = context
   const texture = new Texture(context)
   texture.loadImage('textures/2rscoin.jpg', 3)
   const coin = new Coin(context)
   const flipScript = new ControlCoin()
+  flipScript.onFlipStart(() => {
+    ui.showClickPrompt(false)
+  })
+  flipScript.onFlipEnd(({ heads }) => {
+    if (heads) {
+      ui.displayResultMessage('heads')
+    } else {
+      ui.displayResultMessage('tails')
+    }
+  })
   coin.addControlScript('controlCoin', flipScript)
   coin.initialize(1, 0.1, 50)
   coin.setTexture(texture)
