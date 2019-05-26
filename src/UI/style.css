@@ -1,0 +1,25 @@
+#overlay {
+  position: absolute;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+}
+
+result-message {
+  bottom: 20%;
+  width: 100%;
+  position: absolute;
+}
+
+click-prompt {
+  width: 100%;
+  left: 0;
+  bottom: 8%;
+  position: absolute;
+  transition: 0.5s all;
+  opacity: 100;
+}
+
+click-prompt.hidden {
+  opacity: 0;
+}
