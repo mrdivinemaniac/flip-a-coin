@@ -27,7 +27,7 @@ class Cylinder extends Model {
     const bodyStart = 0
     let i = 0
     for (i = 0; i < slices + 1; ++i) {
-      const a = step * i
+      const a = -(step * i)
       const x = Math.cos(a) * radius
       const z = Math.sin(a) * radius
 
@@ -53,7 +53,7 @@ class Cylinder extends Model {
     buffer.push(0.5)
 
     for (i = 0; i < slices + 2; ++i) {
-      const a = step * i
+      const a = -(step * i)
       const x = Math.cos(a) * radius
       const z = Math.sin(a) * radius
 
@@ -80,7 +80,7 @@ class Cylinder extends Model {
 
     const bottomSlices = slices + 1
     for (let i = 0; i < bottomSlices; ++i) {
-      const a = step * (bottomSlices - i)
+      const a = -(step * (bottomSlices - i))
       const x = Math.cos(a) * radius
       const z = Math.sin(a) * radius
 
@@ -98,7 +98,7 @@ class Cylinder extends Model {
     const bottomLength = i
 
     return {
-      buffer,
+      buffer: buffer,
       bodyStart,
       bodyLength,
       topStart,
