@@ -26,6 +26,13 @@ class Model {
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW)
   }
 
+  _createElementBuffer (data) {
+    const { gl } = this
+    const bufferObject = gl.createBuffer()
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, bufferObject)
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(data), gl.STATIC_DRAW)
+  }
+
   prepareDraw (position, rotation, scale, mView, mProj) {
     const { gl } = this
     gl.useProgram(this.program)

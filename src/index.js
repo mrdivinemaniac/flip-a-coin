@@ -4,6 +4,7 @@ import Scene from './core/Scene'
 import Camera from './core/Camera'
 import Texture from './core/Texture'
 import ControlCoin from './scripts/ControlCoin'
+import Table from './gameObjects/Table'
 import UI from './UI'
 
 function main () {
@@ -16,7 +17,8 @@ function main () {
   context.ui = ui
   const scene = setupScene(context)
   const coin = createCoin(context)
-
+  const table = createTable(context)
+  scene.addGameObject(table)
   scene.addGameObject(coin)
 
   const loop = function () {
@@ -33,9 +35,19 @@ function setupScene (context) {
   scene.setClearColor([0.75, 0.85, 0.8, 1.0])
   const camera = new Camera()
   scene.setCamera(camera)
-  camera.setPosition([0, 12, 0.01])
-  camera.lookAt([0, 0, 0])
+  camera.setPosition([0, 10, 10])
+  camera.lookAt([0, 0.5, 0])
   return scene
+}
+
+function createTable (context) {
+  const table = new Table(context)
+  table.initialize(0.5, 10, 7)
+  const texture = new Texture(context)
+  texture.loadImage('textures/wood.jpg', 3)
+  table.setTexture(texture)
+  table.position.y = -0.32
+  return table
 }
 
 function createCoin (context) {
@@ -55,7 +67,7 @@ function createCoin (context) {
     }
   })
   coin.addControlScript('controlCoin', flipScript)
-  coin.initialize(1, 0.1, 50)
+  coin.initialize(0.7, 0.1, 50)
   coin.setTexture(texture)
   return coin
 }
