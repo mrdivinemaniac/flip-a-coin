@@ -42,7 +42,7 @@ function setupScene (context) {
 
 function createTable (context) {
   const table = new Table(context)
-  table.initialize(0.5, 10, 7)
+  table.initialize(0.5, 10, 7, 3, 0.5, 0.5)
   const texture = new Texture(context)
   texture.loadImage('textures/wood.jpg', 3)
   table.setTexture(texture)

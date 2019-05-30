@@ -3,13 +3,15 @@ class Texture {
     this.gl = context.gl
   }
 
-  setImage (image, channels = 3) {
-    this.channels = channels
+  setImage (image, channels = 3, tile = false) {
+    this.__tile = tile
+    this.__channels = channels
     this.__prepare(image)
   }
 
-  loadImage (url, channels = 3) {
-    this.channels = 3
+  loadImage (url, channels = 3, tile = false) {
+    this.__tile = tile
+    this.__channels = 3
     const image = document.createElement('img')
     image.onload = () => {
       this.__prepare(image)
@@ -17,13 +19,18 @@ class Texture {
     image.src = url
   }
 
+  get location () {
+    return this.__location
+  }
+
   __prepare (image) {
     const { gl } = this
-    const channels = this.channels === 4 ? gl.RGBA : gl.RGB
-    this.location = gl.createTexture()
-    gl.bindTexture(gl.TEXTURE_2D, this.location)
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
+    const channels = this.__channels === 4 ? gl.RGBA : gl.RGB
+    this.__location = gl.createTexture()
+    gl.bindTexture(gl.TEXTURE_2D, this.__location)
+    const wrap = this.__tile ? gl.REPEAT : gl.CLAMP_TO_EDGE
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, wrap)
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, wrap)
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
 
