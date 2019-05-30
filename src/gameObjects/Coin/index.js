@@ -1,4 +1,4 @@
-import GameObject from '../GameObject'
+import GameObject from '../../core/GameObject'
 import Cylinder from '../../models/primitives/Cylinder'
 import VertexShader from '../../core/shaders/VertexShader'
 import FragmentShader from '../../core/shaders/FragmentShader'

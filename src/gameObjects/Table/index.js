@@ -1,4 +1,4 @@
-import GameObject from '../GameObject'
+import GameObject from '../../core/GameObject'
 import VertexShader from '../../core/shaders/VertexShader'
 import FragmentShader from '../../core/shaders/FragmentShader'
 import vertexShaderSrc from './shader.vert'
