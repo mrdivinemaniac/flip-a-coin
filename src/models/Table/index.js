@@ -80,12 +80,12 @@ class Table extends Model {
       ]
 
       const indices = [
-        0, 1, 2, 3, 2, 1,
-        4, 5, 6, 7, 6, 5,
-        8, 9, 10, 10, 11, 8,
-        12, 13, 14, 14, 15, 12,
-        16, 17, 18, 19, 18, 17,
-        20, 21, 22, 23, 22, 21
+        1, 2, 3, 2, 1, 0, // BACKWARD
+        4, 5, 6, 7, 6, 5, // FORWARD
+        8, 9, 10, 10, 11, 8, // TOP
+        12, 15, 14, 14, 13, 12, // BOTTOM
+        16, 17, 18, 19, 18, 17, // LEFT
+        21, 22, 23, 22, 21, 20 // RIGHT
       ]
       const numVertices = (vertices.length / 5)
       const correctedIndices = indices.map(idx => idx + indexOffset + (legNumber * numVertices))
@@ -131,12 +131,12 @@ class Table extends Model {
     ]
 
     const indices = [
-      0, 1, 2, 3, 2, 1,
-      4, 5, 6, 7, 6, 5,
-      8, 9, 10, 10, 11, 8,
-      12, 13, 14, 14, 15, 12,
-      16, 17, 18, 19, 18, 17,
-      20, 21, 22, 23, 22, 21
+      1, 2, 3, 2, 1, 0, // BACKWARD
+      4, 5, 6, 7, 6, 5, // FORWARD
+      8, 9, 10, 10, 11, 8, // TOP
+      12, 15, 14, 14, 13, 12, // BOTTOM
+      16, 17, 18, 19, 18, 17, // LEFT
+      21, 22, 23, 22, 21, 20 // RIGHT
     ]
 
     const legData = this.generateLegVertices(
