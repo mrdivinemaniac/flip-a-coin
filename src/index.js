@@ -6,6 +6,7 @@ import Texture from './core/Texture'
 import ControlCoin from './scripts/ControlCoin'
 import Table from './gameObjects/Table'
 import UI from './UI'
+import ControlCamera from './scripts/ControlCamera'
 
 function main () {
   const ui = new UI()
@@ -18,6 +19,7 @@ function main () {
   const scene = setupScene(context)
   const coin = createCoin(context)
   const table = createTable(context)
+  scene.camera.addControlScript('controlCamera', new ControlCamera(coin.position))
   scene.addGameObject(table)
   scene.addGameObject(coin)
 
@@ -33,10 +35,9 @@ function main () {
 function setupScene (context) {
   const scene = new Scene(context)
   scene.setClearColor([0.75, 0.85, 0.8, 1.0])
-  const camera = new Camera()
+  const camera = new Camera(context)
   scene.setCamera(camera)
-  camera.setPosition([0, 10, 10])
-  camera.lookAt([0, 0.5, 0])
+  camera.setPosition([0, 5, 0])
   return scene
 }
 
