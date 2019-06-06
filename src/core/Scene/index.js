@@ -50,6 +50,7 @@ class Scene {
 
   update () {
     this.context.notifyUpdating()
+    this.__camera.update()
     this.__gameObjects.forEach(this.__updateGameObject)
     this.context.notifyUpdateDone()
   }

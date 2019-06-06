@@ -1,13 +1,14 @@
-import { mat4, glMatrix } from 'gl-matrix'
+import { mat4, glMatrix, quat } from 'gl-matrix'
+import GameObject from '../GameObject'
 
-class Camera {
-  constructor () {
-    this.position = { x: 0, y: 0, z: 0 }
+class Camera extends GameObject {
+  constructor (context) {
+    super(context)
     this.__viewMatrix = new Float32Array(16)
     this.__projection = new Float32Array(16)
     this.__fov = glMatrix.toRadian(45)
     this.__focus = [0.1, 2000]
-    this.__lookAtPosition = [0, 0, 0]
+    this.__lookAtPosition = null
     this.__ratio = 16 / 9
   }
 
@@ -17,6 +18,10 @@ class Camera {
 
   setAspectRatio (ratio) {
     this.__ratio = ratio
+  }
+
+  stopLookAt () {
+    this.__lookAtPosition = null
   }
 
   lookAt (position) {
@@ -33,12 +38,30 @@ class Camera {
 
   get viewMat () {
     const from = [this.position.x, this.position.y, this.position.z]
-    mat4.lookAt(
-      this.__viewMatrix,
-      from,
-      this.__lookAtPosition,
-      [0, 1, 0]
-    )
+    if (this.__lookAtPosition) {
+      mat4.lookAt(
+        this.__viewMatrix,
+        from,
+        this.__lookAtPosition,
+        [0, 1, 0]
+      )
+    } else {
+      const { position, rotation, scale } = this
+      const rotationQuat = new Float32Array(9)
+      quat.fromEuler(rotationQuat, rotation.x, rotation.y, rotation.z)
+
+      const mRotate = new Float32Array(16)
+      const mScale = new Float32Array(16)
+      const mTranslate = new Float32Array(16)
+
+      mat4.fromTranslation(mTranslate, [position.x, position.y, position.z])
+      mat4.fromScaling(mScale, [scale.x, scale.y, scale.z])
+      mat4.fromQuat(mRotate, rotationQuat)
+
+      mat4.multiply(this.__viewMatrix, mTranslate, mRotate)
+      mat4.multiply(this.__viewMatrix, this.__viewMatrix, mScale)
+      mat4.invert(this.__viewMatrix, this.__viewMatrix)
+    }
     return this.__viewMatrix
   }
 
