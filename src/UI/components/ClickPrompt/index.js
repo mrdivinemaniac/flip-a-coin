@@ -48,7 +48,7 @@ template.innerHTML = `
   Heads or Tails<span class='question'>?</span>
 </h1>
 <h2>
-  Click to find out
+  Click to flip!
 </h2>
 `
 

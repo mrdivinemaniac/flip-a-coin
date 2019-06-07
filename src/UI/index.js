@@ -1,5 +1,6 @@
 import './components/ResultMessage'
 import './components/ClickPrompt'
+import './components/ControlInfo'
 import './style.css'
 
 class UI {
@@ -22,6 +23,7 @@ class UI {
     this.__overlay = overlay
     this.__message = message
     this.__clickPrompt = clickPrompt
+    this.showControlInfo()
   }
 
   __sizeOverlay () {
@@ -48,6 +50,11 @@ class UI {
     this.showClickPrompt(false)
     if (this.__messageTimeout) window.clearTimeout(this.__messageTimeout)
     this.__messageTimeout = window.setTimeout(this.resetResultMessage, 2000)
+  }
+
+  showControlInfo () {
+    const controlInfo = document.createElement('control-info')
+    this.__overlay.appendChild(controlInfo)
   }
 
   destroy () {

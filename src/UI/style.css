@@ -23,3 +23,8 @@ click-prompt {
 click-prompt.hidden {
   opacity: 0;
 }
+
+control-info {
+  position: absolute;
+  right: 0;
+}
