@@ -18,7 +18,7 @@ export function flipAnimation (gameObject, endAngle) {
   ])
   const slowFlip = new Interpolator(0, 480, 900)
   const flip = new Interpolator(0, 720, 400)
-  const endFlip = new Interpolator(720, endAngle, 400)
+  const endFlip = new Interpolator(360, endAngle, 400)
   const flipAnim = new SerialInterpolatorSet([
     flip,
     slowFlip,

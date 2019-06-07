@@ -23,7 +23,7 @@ class ControlCoin extends ControlScript {
     if (mouse.isButtonPressed('left')) {
       this.__flipping = true
       const heads = Math.random() < 0.5
-      this.__flipAnimation = flipAnimation(gameObject, heads ? 0 : 180)
+      this.__flipAnimation = flipAnimation(gameObject, heads ? 720 : 900)
       this.__flipResult = { heads, tails: !heads }
       if (this.__onFlipStart) this.__onFlipStart()
     }
