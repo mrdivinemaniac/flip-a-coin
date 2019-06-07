@@ -7,7 +7,7 @@ class Camera extends GameObject {
     this.__viewMatrix = new Float32Array(16)
     this.__projection = new Float32Array(16)
     this.__fov = glMatrix.toRadian(45)
-    this.__focus = [0.1, 2000]
+    this.__focus = [0.1, 4000]
     this.__lookAtPosition = null
     this.__ratio = 16 / 9
   }
