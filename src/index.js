@@ -9,6 +9,13 @@ import UI from './UI'
 import ControlCamera from './scripts/ControlCamera'
 
 function main () {
+  const context = setupContext()
+  return loadResources(context)
+    .then(resources => prepareGame(context, resources))
+    .then(gameLoop)
+}
+
+function setupContext () {
   const ui = new UI()
   const canvas = document.getElementById('screen')
   canvas.width = window.innerWidth
@@ -16,13 +23,40 @@ function main () {
 
   const context = new AppContext(canvas)
   context.ui = ui
+  return context
+}
+
+function loadResources (context) {
+  return loadTextures(context)
+    .then(textures => ({ textures }))
+
+  function loadTextures (context) {
+    const tableTexture = new Texture(context)
+    const coinTexture = new Texture(context)
+    return Promise.all([
+      tableTexture.loadImage('textures/wood.jpg', 3),
+      coinTexture.loadImage('textures/2rscoin.jpg', 3)
+    ]).then(() => {
+      return {
+        table: tableTexture,
+        coin: coinTexture
+      }
+    })
+  }
+}
+
+function prepareGame (context, resources) {
+  const { textures } = resources
   const scene = setupScene(context)
-  const coin = createCoin(context)
-  const table = createTable(context)
+  const coin = createCoin(context, textures.coin)
+  const table = createTable(context, textures.table)
   scene.camera.addControlScript('controlCamera', new ControlCamera(coin.position))
   scene.addGameObject(table)
   scene.addGameObject(coin)
+  return scene
+}
 
+function gameLoop (scene) {
   const loop = function () {
     scene.update()
     scene.draw()
@@ -41,20 +75,16 @@ function setupScene (context) {
   return scene
 }
 
-function createTable (context) {
+function createTable (context, texture) {
   const table = new Table(context)
   table.initialize(0.5, 10, 7, 3, 0.5, 0.5)
-  const texture = new Texture(context)
-  texture.loadImage('textures/wood.jpg', 3)
   table.setTexture(texture)
   table.position.y = -0.32
   return table
 }
 
-function createCoin (context) {
+function createCoin (context, texture) {
   const { ui } = context
-  const texture = new Texture(context)
-  texture.loadImage('textures/2rscoin.jpg', 3)
   const coin = new Coin(context)
   const flipScript = new ControlCoin()
   flipScript.onFlipStart(() => {

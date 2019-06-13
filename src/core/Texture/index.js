@@ -10,13 +10,16 @@ class Texture {
   }
 
   loadImage (url, channels = 3, tile = false) {
-    this.__tile = tile
-    this.__channels = 3
-    const image = document.createElement('img')
-    image.onload = () => {
-      this.__prepare(image)
-    }
-    image.src = url
+    return new Promise((resolve, reject) => {
+      this.__tile = tile
+      this.__channels = 3
+      const image = document.createElement('img')
+      image.onload = () => {
+        this.__prepare(image)
+        resolve(image)
+      }
+      image.src = url
+    })
   }
 
   get location () {
