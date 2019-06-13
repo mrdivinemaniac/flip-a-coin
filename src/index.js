@@ -10,9 +10,13 @@ import ControlCamera from './scripts/ControlCamera'
 
 function main () {
   const context = setupContext()
+  context.ui.showLoader()
   return loadResources(context)
     .then(resources => prepareGame(context, resources))
-    .then(gameLoop)
+    .then(scene => {
+      context.ui.showHUD()
+      gameLoop(scene)
+    })
 }
 
 function setupContext () {

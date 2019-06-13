@@ -1,6 +1,7 @@
 import './components/ResultMessage'
 import './components/ClickPrompt'
 import './components/ControlInfo'
+import './components/GameLoader'
 import './style.css'
 
 class UI {
@@ -15,21 +16,26 @@ class UI {
   __initialize () {
     const overlay = document.createElement('div')
     overlay.id = 'overlay'
-    const message = document.createElement('result-message')
-    const clickPrompt = document.createElement('click-prompt')
-    overlay.appendChild(clickPrompt)
-    overlay.appendChild(message)
     document.body.appendChild(overlay)
     this.__overlay = overlay
-    this.__message = message
-    this.__clickPrompt = clickPrompt
-    this.showControlInfo()
   }
 
   __sizeOverlay () {
     const overlay = this.__overlay
     overlay.style.width = window.innerWidth
     overlay.style.height = window.innerHeight
+  }
+
+  showHUD () {
+    const overlay = this.__overlay
+    overlay.innerHTML = ''
+    const message = document.createElement('result-message')
+    const clickPrompt = document.createElement('click-prompt')
+    overlay.appendChild(clickPrompt)
+    overlay.appendChild(message)
+    this.__message = message
+    this.__clickPrompt = clickPrompt
+    this.showControlInfo()
   }
 
   showClickPrompt (show = true) {
@@ -55,6 +61,12 @@ class UI {
   showControlInfo () {
     const controlInfo = document.createElement('control-info')
     this.__overlay.appendChild(controlInfo)
+  }
+
+  showLoader () {
+    this.__overlay.innerHTML = ''
+    const loader = document.createElement('game-loader')
+    this.__overlay.appendChild(loader)
   }
 
   destroy () {
